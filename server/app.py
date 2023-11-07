@@ -12,7 +12,9 @@ def run_script(name):
     llm = OpenAI(temperature=0.9)
     tools = load_tools(["serpapi"], llm=llm)
     agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
-    result = agent.run(f"tell me about {name}, from Ohio. Be sure to search multiple social media sources for their online presence and focus on specific details regarding their life.")
+    # add in another box for the user to enter additional information
+
+    result = agent.run(f"tell me about {name}, from New Jersey. Be sure to search multiple social media sources for their online presence and focus on specific details regarding their life.")
     return result
 
 @app.route('/api/search', methods=['POST'])
