@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template_string
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -24,6 +24,38 @@ def search():
         return jsonify({'error': 'Name is required'}), 400
     output = run_script(name)
     return jsonify({'result': output})
+
+@app.route('/')
+def index():
+    return render_template_string("""
+    <html>
+        <body>
+            <h2>Enter Name</h2>
+            <form id="nameForm">
+                <input type="text" id="name" name="name" required>
+                <input type="submit" value="Submit">
+            </form>
+            <div id="result"></div>
+            <script>
+                document.getElementById('nameForm').onsubmit = function(event) {
+                    event.preventDefault();
+                    fetch('/api/search', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({name: document.getElementById('name').value})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('result').textContent = data.result;
+                    });
+                };
+            </script>
+        </body>
+    </html>
+    """)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
