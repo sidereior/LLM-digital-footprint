@@ -57,6 +57,7 @@ def index():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Does AI Know Me</title>
     <style>
+        /* Body and Global Styles */
         body {
             font-family: 'Monaco', monospace;
             background-color: #f0f2f5;
@@ -66,13 +67,13 @@ def index():
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            height: 100vh;
             color: #333;
         }
 
+        /* Header Styles */
         .header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
         }
 
         .header h1 {
@@ -82,6 +83,7 @@ def index():
             font-family: 'Monaco', monospace;
         }
 
+        /* Container for Form and Results */
         .container {
             text-align: center;
             background-color: #fff;
@@ -89,14 +91,16 @@ def index():
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
             border-radius: 10px;
             width: 400px;
+            margin-bottom: 30px;
         }
 
+        /* Form and Input Styles */
         h2 {
             color: #2a3f5d;
             margin-bottom: 20px;
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="submit"] {
             width: 80%;
             padding: 10px;
             margin-bottom: 20px;
@@ -108,57 +112,72 @@ def index():
         input[type="submit"] {
             background-color: #007bff;
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            font-family: 'Monaco', monospace;
         }
 
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
 
+        /* Result and Button Styles */
         #result {
-            margin-top: 20px;
             padding: 10px;
             border-radius: 5px;
             background-color: #e9ecef;
             font-family: 'Monaco', monospace;
         }
 
-       #countButton {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
+        #countButton {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Monaco', monospace;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Spacing between button and form */
+        }
+
+        #countButton:hover {
+            background-color: #0056b3;
+        }
+
+        #countDisplay {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Monaco', monospace;
+            margin-top: 10px; /* Spacing between button and count display */
+        }
+                                  .why-section {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.why-section h3 {
+    margin-bottom: 10px;
+}
+
+.why-section a {
+    display: inline-block;
+    margin-top: 10px;
     background-color: #007bff;
     color: white;
-    border: none;
+    padding: 10px 15px;
     border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Monaco', monospace;
+    text-decoration: none;
     transition: background-color 0.3s;
 }
 
-#countButton:hover {
+.why-section a:hover {
     background-color: #0056b3;
 }
-
-#countDisplay {
-    position: fixed;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #e9ecef;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: 'Monaco', monospace;
-}
-    
-</style>
+                                  
+    </style>
 </head>
 <body>
     <div class="header">
@@ -172,12 +191,18 @@ def index():
             <input type="submit" value="Submit">
         </form>
         <div id="result"></div>
+
+        <button id="countButton">I support not having my personal information in future Large Language Models.</button>
+        <div id="countDisplay"></div>
     </div>
-
-    <button id="countButton">I support not having my personal information in future Large Language Models.</button>
-    <div id="countDisplay"></div>
-
+                                  
+                                  <div class="why-section">
+    <h3>Why?</h3>
+    <p>doesaiknowme.com's aim is to foster a sense of control and awareness among people regarding their online presence, specifically in the context of DNNs as anyone’s digital footprint has the possibility of being harvested by future LLMs.</p>
+    <a href="https://github.com/sidereior/doesaiknowme.com" target="_blank">View Project on GitHub</a>
+</div>
     <script>
+                                  
         document.getElementById('nameForm').onsubmit = function(event) {
             event.preventDefault();
             fetch('/api/search', {
