@@ -89,7 +89,6 @@ def index():
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
             border-radius: 10px;
             width: 400px;
-            margin-bottom: 30px;
         }
 
         h2 {
@@ -129,30 +128,37 @@ def index():
             font-family: 'Monaco', monospace;
         }
 
-        #countButton {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Monaco', monospace;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
+       #countButton {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Monaco', monospace;
+    transition: background-color 0.3s;
+}
 
-        #countButton:hover {
-            background-color: #0056b3;
-        }
+#countButton:hover {
+    background-color: #0056b3;
+}
 
-        #countDisplay {
-            margin-top: 10px;
-            background-color: #e9ecef;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: 'Monaco', monospace;
-        }
-    </style>
+#countDisplay {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Monaco', monospace;
+}
+    
+</style>
 </head>
 <body>
     <div class="header">
@@ -166,16 +172,12 @@ def index():
             <input type="submit" value="Submit">
         </form>
         <div id="result"></div>
-
-        <button id="countButton">I don't want my information recorded</button>
-        <div id="countDisplay"># other users also don't want their info in AI models.</div>
     </div>
 
-    <script>
-        if(localStorage.getItem('countButtonClicked') === 'true') {
-            document.getElementById('countButton').disabled = true;
-        }
+    <button id="countButton">I support not having my personal information in future Large Language Models.</button>
+    <div id="countDisplay"></div>
 
+    <script>
         document.getElementById('nameForm').onsubmit = function(event) {
             event.preventDefault();
             fetch('/api/search', {
@@ -198,9 +200,7 @@ def index():
             fetch('/update_count', { method: 'POST' })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('countDisplay').textContent = `# ${data.count} other users also don't want their info in AI models.`;
-                document.getElementById('countButton').disabled = true;
-                localStorage.setItem('countButtonClicked', 'true');
+                document.getElementById('countDisplay').textContent = `${data.count} other people also support this.`;
             });
         };
     </script>
